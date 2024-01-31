@@ -1,4 +1,3 @@
-from django.shortcuts import get_list_or_404
 from rest_framework import viewsets
 
 from posts.models import Comment, Group, Post
@@ -25,7 +24,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Comment.objects.all()
-        post_id = self.request.query_params.get('post_id')
+        post_id = self.kwargs.get('post_id')
         if post_id is not None:
             queryset = queryset.filter(post_id=post_id)
         return queryset
